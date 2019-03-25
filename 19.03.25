@@ -1,10 +1,37 @@
-# CSS
+# CSS (Cascading style sheet)
 
+p{ 여기서 p는 선택자(selector)
+  font-size (property) : 10px (value); 
+}
+
+이 한 단위를 선언블록이라한다. 각각의 속성정의는 선언이라 함.
+
+## HTML에 CSS를 적용하는 방법
+1. link style : <link 태그 안에 추가해주는것>
+2. embeding style: head에 style태그 추가해주는것. <style></style>
+3. inline sytle: 태그 안에 <p style="color:red; font-size: 24px;">안녕하세요!</p> 다음과같이 표현해준다.
+
+## 선택자(selector)란?
+1) 일반적인 태그 ex) <div>, <h1>, <p> -> 특징: 선택자는 여러가지를 한번에 지정 가능하다. ex) h1, p{}
+2) 단순선택자 = 태그(tag), 클래스, 아이디, 속성(attribute), 전체(universe)
+여기서 id는 css파일에서 #로 해주고 class는 .으로 해준다.
+3) 속성선택자
+4) 복합선택자
+ - 자식선택자 : div > h1{color: red;} : 부모선택자 중에 자식선택자로 정의된 것만 선택한다. ! 여기서 한단계 바로 밑의 자식만 해당한다.
+ - 후손선택자 : div h1{color: red;} : 부모선택자 밑에 모든 자식선택자를 선택한다.
+ - 인접 형제 선택자: h3 + p {} : h3와 p 요소중에 h3바로 밑에 있는 p 만 해당한다.
+ - 일반 형제 선택자 : h3 ~ p {} : h3밑에 있는 모든 p 요소를 선택한다.
+5) psuedo selector
+ - visited : 이미 방문한 링크의 경우 ex) <style> a:link{color: red;}
+ - link : 방문하지 않은 링크의 경우
+ - hover : 마우스를 올렸을때 나타나는 행동
+ - focus : 클릭했을때 나타나는 행동
+ 
 ## position
 웹페이지 내부 content(tag)의 위치를 지정해주는것
 css file 내부에 .header{} 내부에 표현해줌
 '''css
-position: relative or absolute or fixed;
+position: relative or absolute or fixed; 라고 표현해준다.
 z-index: 숫자
 '''
  - relative : content의 위치는 페이지의 기본 위치를 기준으로 함
@@ -12,7 +39,7 @@ z-index: 숫자
  - fixed : 웹페이지에 위치에 고정할 수 있으며 스크롤해도 그 위치에 고정되어있다.
  - z-index : 다른 요소와 overlap될 때 중첩되는 위치를 숫자로 지정한다.
  
- ## display
+## display
  content(tag)가 어떻게 보여줄지 결정하는 것
  '''css
  display: none, block, inline, inline-block;
@@ -25,11 +52,11 @@ z-index: 숫자
              width와 height를 지정할 수 없다.
   - inline-block : block과 inline의 중간 형태라고 볼 수 있는데, 줄 바꿈이 되지 않지만 크기를 지정 할 수 있다.
   
-  ## float , clear
+## float , clear
   - float : 웹페이지에서 맨 왼쪽 or 맨 오른쪽으로 content를 이동해주는것
   - clear : 웹페이지에서 요소의 왼쪽 또는 오른쪽으로 지우는 것
   
-  ##예제
+##예제
   '''css
   <html>
 <head>
@@ -67,7 +94,7 @@ z-index: 숫자
  - hsl(200, 25%, 50%) 색조표현
  - hsla(200 25% 50% 0.1) alpha = opacity 표현
   
-# Typography
+## Typography
  - word-spacing: 0.5em -> 단어 사이의 간격을 늘리는 것
  - letter-spacing: 0.5em -> 개별 글자 사이의 간격을 늘리는 것
  - text-transform: uppercase -> 대문자로 변환
