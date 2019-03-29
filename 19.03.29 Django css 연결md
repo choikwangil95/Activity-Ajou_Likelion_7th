@@ -1,0 +1,25 @@
+# Django에서 CSS 연결하기
+## static files
+CSS를 적용시키기 위해서는 먼저 Django 정적파일(static files) 기능에 대해 숙지해야 한다.<br>
+setting.py에서 맨 밑에 다음과 같은 항목을 추가해준다.
+```html
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+) 
+```
+이제부터 HTML 내에서 스크립트로 정적 파일을 호출할 때, 모든 파일을 static 폴더 안에서 찾게 된다.<br><br>
+그 후, manage.py가 있는 경로 혹은, 자신의 앱이 있는 경로에 static폴더를 만들고, static 폴더 안에 css폴더를<br>
+만들어준 다음, css 파일을 만들어 준다.<br><br>
+즉, startproject -> static -> css -> css파일로 저장되는 것이다.
+
+## CSS파일 적용시키기
+css 파일의 경우, head 태그에서 해당 파일을 호출하는데, 그 전에 정적 파일 경로에 있는 모든 파일을 불러올 수 있도록
+{% load static %}를 사용한다.
+```html
+<html>
+  <head>
+    {% load static%}
+    <link rel="stylesheet" href="{% static 'css/test.css' %}">
+  </head>
+</html>
+```
