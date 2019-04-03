@@ -1,9 +1,9 @@
 # 19.04.03 멋쟁이 사자처럼 강의
-## 1 부트스트랩으로 css꾸미기
+## 1_부트스트랩으로 css꾸미기
 #### CDN이란? content delivery network
 
 
-## 2 base html 파일을 만들어서 css를 다양한 html파일들에 한번에 적용하기
+## 2_base html 파일을 만들어서 css를 다양한 html파일들에 한번에 적용하기
 
 #### 1) 프로젝트폴더의 하위 프로젝트폴더에 templates폴더를 만들어주고 base.html파일을 만들어준다.
 #### 2) base.html파일에는 적용할 내용만 남겨둔다
@@ -27,7 +27,7 @@
 
 {% endblock%}
 ```
-## 3 Font 적용해주기
+## 3_Font 적용해주기
 #### 1) 프로젝트파일에 static 폴더를 만들어주고 css폴더를 만들어주고 css파일을 만들어준다.
 #### 2) noonnu사이트에 들어가서 웹폰트로 사용하기를 복사하여 css파일에 넣어준다
 ```css
@@ -49,7 +49,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/style.css' %}">
 ```
 
-## 4 이미지 가져다 쓰기
+## 4_이미지 가져다 쓰기
 #### 1) font awesome에서 svg를 클릭해준 다음 scripts를 base.html body tag에 추가해준다
 ```html
 <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
