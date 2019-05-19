@@ -1,0 +1,33 @@
+# Git
+### 분산 버전 관리 시스템
+
+## 1 저장을 위한 도구로서의 Git
+
+### 1 프로젝트가 저장되는 과정
+#### 1 작업공간
+local로 개발하고 있는 공간
+#### 2 Staging area
+Repository로 가기 전에 거쳐가는 확인공간
+#### 3 Repository
+저장소 <br/><br/>
+
+#### 여기서 1 -> 2 는 Add / 2 -> 3은 commit 한다고 한다
+commit은 저장소의 Check point로 어떤 변경사항들이 저장되었는지를 기록
+
+## 2 명령어
+#### 1 git init : git 저장소 초기화 (프로젝트 초기에 한번)
+#### 2 git status : 저장소 상태 체크, 현재 프로젝트 변경사항 확인
+#### 3 git add : 모든 파일을 staging area로 올리기
+#### 4 git commit -m <설명> : 어떤거를 commit했는지 설명에 간략하게 작성
+#### 5 git ignore : git에 올리고 싶지 않은 것들을 미리 걸러놓는 것
+
+### 명령어 순서
+#### 1 git ignore : .gitignore 파일을 만들어주고 인터넷 gitignore.io에서 django를 검색하고 항목들을 복붙한다
+#### 2 git init
+#### 3 git status
+#### 4 git add -A / git add .
+#### 5 git commit -m "설명"
+#### 추후에 변경사항이 있을 시에 4,5번 항목을 실행해준다
+#### 6 push
+
+## 2 협업을 위한 도구로서의 Git
