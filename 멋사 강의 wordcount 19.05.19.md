@@ -33,7 +33,7 @@ number of students = {{ class | length }}
 ```
 <br/><br/>
 
-## View 처리
+## 2 View 처리
 ```python
 def result(request):
     
@@ -57,13 +57,13 @@ def result(request):
         'dictionary' : word_dictionary.items()
  })
 ```
-#### 변수 넘겨주기
+### 변수 넘겨주기
 `text=request.GET["fulltext"]` : 요청받은 값을 데이터로 가져온것을 변수(text)에 저장 (데이터는 name=""으로 지정한 것)<br/>
 ` return render(request, 'result.html', { 'full' : text } )` :  result.html로 변수를 딕셔너리로 반환해줘야함<br/>
 
 그리고 templates변수는 `{{ full }}` 과 같이 사용해준다 <br/><br/>
 
-#### question : 특정 단어가 몇번 사용되었는지 어떻게 확인할 수 있을까?
+### question : 특정 단어가 몇번 사용되었는지 어떻게 확인할 수 있을까?
 answer : 사전형 자료형을 사용해준다
 ```python
  word_dictionary = {}
