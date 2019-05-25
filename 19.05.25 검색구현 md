@@ -1,0 +1,148 @@
+# 검색
+
+## 1) 함수 View로 구현
+### request로 검색어 가져와서 filter한다
+- 1 - templates
+```python
+# templates
+
+  <form action="" method="get">
+    <input type="text" name="q" value="{{ q }}">
+    <input type="submit" value="검색">
+  </form>
+```
+- 2 - views.py
+```python
+# views.py
+
+from django.shortcuts import render
+from .models import Post
+
+def post_list(request):
+    qs = Post.objects.all() # queryset 가져오기
+
+    q = request.GET.get('q', '') # GET request의 인자중에 q 값이 있으면 가져오고, 없으면 빈 문자열 넣기
+    if q: # q가 있으면
+        qs = qs.filter(title__icontains=q) # 제목에 q가 포함되어 있는 레코드만 필터링
+
+    return render(request, 'blog/post_list.html', {
+        'post_list' : qs,   # templates에서 사용할 context 반환
+        'q' : q,
+    })
+```
+<br/>
+<br/>
+
+## 2) Class View로 구현
+### 2-1 ) FormView 사용
+#### 특정 페이지에서 검색을 할 경우에 편함
+- 1 - urls.py
+```python
+# urls.py
+
+urlpatterns = [
+path('search/', views.SearchFormView.as_view() , name = "search"),
+]
+```
+```python
+- 2 - forms.py
+# forms.py
+
+from django import forms 
+from .models import Post
+
+class PostSearchForm(forms.ModelForm): 
+    class Meta:
+        model = Post
+        fields = ['title']
+```
+- 3 - views.py
+```python
+# views.py
+
+class SearchFormView(FormView):     # Generic View인 FormView 사용
+    template_name = 'search.html'
+    form_class = PostSearchForm
+    
+    # def form_valid(self, form):  # This method is called when valid form data has been POSTed.
+    #     return super(SearchFormView, self).form_valid(form)
+    
+    def form_valid(self,form): # 값이 전달 됬을 경우
+        
+        title = '%s' %self.request.POST['title'] # 검색어 
+        post_list = Post.objects.filter(
+            Q(title__icontains=title) | Q(description__icontains=title) # Q 객체를 사용해서 검색한다. 
+                # title,description 칼럼에 대소문자를 구분하지 않고 단어가 포함되어있는지 (icontains) 검사 
+        ).distinct() #중복을 제거한다. 
+        
+        context = {}
+        context['post_list'] = post_list # 검색된 결과 리스트를 컨텍스트 변수에 담는다.
+        context['word'] = title # 검색어 저장
+        context['form'] = form # PostSerachForm 객체를 form에 저장
+        
+        return render(self.request, self.template_name, context)    # No redirection
+```
+- 4 - templates
+```python
+# templates
+
+{% if post_list %}
+        
+        <h4>'{{ word }}' 내용을 포함한 대외활동 리스트</h4>
+        <br/>
+        <div class="row">
+{% for post in post_list %}
+          
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card card-shadow h-100">
+              <a href= "{% url 'board:detail' post.id %}" ><img class="card-img-top" src="https://cf-cpi.campuspick.com/activity/1554192449636785.jpg" alt=""></a>
+              <div class="card-body">
+                <span class="badge badge-pill badge-info">D-{{post.date}}</span>
+                <p class="card-title">
+                  <a href="">{{post.title}}</a>
+                </p>
+                <small>유저아이디</small>
+              </div>
+              <div class="card-footer row mx-0 px-0 py-0">
+                <div class="col">
+                  <small class="card-text text-secondary float-left mt-1"><i class="fas fa-eye"></i>&nbsp;&nbsp;본횟수</small>
+                </div>
+                <div class="col">
+                  <small class="card-text text-secondary float-right mt-1"><i class="fas fa-comment"></i>&nbsp;&nbsp;reply횟수</small>
+                </div>
+              </div>
+            </div>
+         </div>
+{%endfor%}
+          
+{% elif word %}
+          
+        <h4>검색하신 '{{ word }}' (이)가 포함된 대외활동이 없습니다.</h4>
+          
+{% endif %}
+```
+### 2-2 ) Listview & Formview Mixin
+#### 근데 tempalte를 보여주는 뷰에서 filter를 사용하고 싶은 경우에 여러개의 generic view를 상속한다
+```python
+# views.py
+
+class PostList(ListView, FormView):
+    model = Post
+    template_name = 'home.html'
+    form_class =  PostSearchForm
+    
+    def form_valid(self,form): # 값이 전달 됬을 경우
+        
+        title = '%s' %self.request.POST['title'] # 검색어 
+        post_list = Post.objects.filter(
+            Q(title__icontains=title) | Q(description__icontains=title) # Q 객체를 사용해서 검색한다. 
+                # title,description 칼럼에 대소문자를 구분하지 않고 단어가 포함되어있는지 (icontains) 검사 
+        ).distinct() #중복을 제거한다. 
+        
+        context = {}
+        context['post_list'] = post_list # 검색된 결과 리스트를 컨텍스트 변수에 담는다.
+        context['word'] = title # 검색어 저장
+        context['form'] = form # PostSerachForm 객체를 form에 저장
+        
+        return render(self.request, self.template_name, context)    # No redirection
+```
