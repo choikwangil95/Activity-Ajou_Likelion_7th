@@ -1,0 +1,32 @@
+# Login 및 인증
+## Login
+장고에서 기본으로 제공해주는 User table을 사용한다<br/>
+사이트 가입은 table 속성에 없으므로 UserCreateView를 만들어 주어야함
+
+## 컨텐츠 사용자 인증
+컨텐츠를 로그인한 주인만 사용하게 하게 해주기 위해서는 
+- 1 ) model에 owner를 foreinkey로 잡아준다
+```python
+# models.py
+
+Class Bookmark(models.Model):
+  title = 
+  '
+  '
+  '
+  owner = models.ForeinKey(User, null=True)
+```
+- 2 ) view의 컨텐츠 CreateView에서 form_valid 오버라이딩
+```python
+# views.py
+
+Class BookmarkCreateView(LoginRequiredMixin, CreateView):     # LoginRequierdMixin 클래스를 상속
+  '
+  '
+  '
+  def form_valid(self, form):
+    form_instance.owner = self.request.user   # form의 owner 필드에 로그인된 사용자의 User 객체를 호출
+    return super(BookmarkCreateView, self).form_valid(form) # 변경사항을 원래 클래스를 호출하여 적용시킨다
+```
+LoginRequierdMixin 클래스를 상속받는 클래스는 로그인된 경우만 접근이 가능하다.<br/>
+해당 클래스는 @login_required() 데코레이팅 기능을 클래스에 적용할때 사용한다.
