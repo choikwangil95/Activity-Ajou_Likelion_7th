@@ -1,7 +1,7 @@
 ## Git & Github
 
 ### Git
-<p> Git은 로컬에서 관리되는 버전 관리 시스템(VCS : Version Control System)이다</p>
+Git은 로컬에서 관리되는 버전 관리 시스템(VCS : Version Control System)이다
 `로컬? / 버전 관리?`<br/>
 - 로컬이란 : 여러분이 개발하고 있는 <strong>개발환경</strong><br/>
 - 버전 관리 시스템(VCS)이란 : 쉽게 말해 <strong>코드가 변경된 부분을 모두 기억</strong>해준다는 의미입니다.<br/>
